@@ -149,6 +149,7 @@ data/raw/*
 features/*
 submissions/*
 .vscode/
+kaggle_utils/
 
 # exclude
 !.gitkeep
