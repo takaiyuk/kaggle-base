@@ -14,7 +14,7 @@ class Basic:
 
 @dataclass
 class Column:
-    categorical: List[str] = field(default_factory=lambda: ["question_had_explanation"])
+    categorical: List[str] = field(default_factory=lambda: [""])
     target: str = ""
 
 
@@ -27,12 +27,13 @@ class Feature:
 class Kfold:
     number: int = 2
     method: str = "tskf"
-    column: str = ""
+    shuffle: bool = True
+    columns: List[str] = field(default_factory=lambda: [""])
 
 
 @dataclass
 class Model:
-    eval_metric: str = "auc"
+    eval_metric: str = ""
     name: str = "ModelLGBM"
 
 
