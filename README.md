@@ -8,7 +8,7 @@
 
 ```
 $ ./scripts/download.sh
-$ ./scrpits/kaggle-utils.sh download
+$ ./scripts/kaggle-utils.sh download
 $ ./docker/pull.sh && ./docker/run.sh && ./docker/exec.sh
 root@xxx:/workspace# venv-activate
 (venv) root@xxx:/workspace# ./scripts/kaggle-utils.sh install
