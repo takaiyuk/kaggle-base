@@ -1,6 +1,6 @@
 #!/bin/bash
 function download () {
-    sudo rm -r kaggle_utils
+    rm -r kaggle_utils
     git clone https://github.com/takaiyuk/kaggle_utils
 }
 

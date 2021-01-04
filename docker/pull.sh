@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo docker pull takaiyuk/ml-table-gpu:latest
+docker pull takaiyuk/ml-table-gpu:latest

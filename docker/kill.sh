@@ -1,3 +1,3 @@
 #!/bin/bash
 CONTAINER_NAME="kaggle-base"
-sudo docker stop ${CONTAINER_NAME} && sudo docker rm ${CONTAINER_NAME}
+docker stop ${CONTAINER_NAME} && docker rm ${CONTAINER_NAME}
