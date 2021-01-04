@@ -3,7 +3,7 @@ import warnings
 from src.config import BaseFeConfig
 from src.const import DataPath
 from src.data import Loader
-from src.features.preprocess import join_data, make_features, preprocess_data
+from src.features.preprocess import make_features
 from src.models import TrainData
 from src.models.kfold import generate_kf
 from src.utils import Jbl, check_exist, mkdir, reduce_mem_usage
