@@ -32,17 +32,11 @@ do
     cat ${f} >> ./kaggle-notebook.py
 done
 
-# src/config/以下のファイルを展開
-module_block CONFIG
-cat src/config/base.py >> ./kaggle-notebook.py
-cat src/config/fe/"$1".py >> ./kaggle-notebook.py
-cat src/config/run/"$2".py >> ./kaggle-notebook.py
-
-# src/*/以下のファイルを展開
+# src/*/以下(src/fe, src/exp除く)のファイルを展開
 DIRS=$(echo $(ls -d src/*/))
 for d in ${DIRS}
 do
-    if [ ! "`echo ${d} | grep __pycache__`" ] && [ ! "`echo ${d} | grep config`" ]; then 
+    if [ ! "`echo ${d} | grep __pycache__`" ] && [ ! "`echo ${d} | grep fe`" ] && [ ! "`echo ${d} | grep exp`" ]; then 
         module_block ${d}
         FILES=$(echo $(ls -d ${d}*))
         for f in ${FILES}
@@ -53,6 +47,11 @@ do
         done
     fi
 done
+
+# src/fe/, src/exp以下のファイルを展開
+module_block CONFIG
+cat src/fe/$1*.py >> ./kaggle-notebook.py
+cat src/exp/$2*.py >> ./kaggle-notebook.py
 
 # mainファイルを展開
 module_block RUN
