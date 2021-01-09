@@ -142,14 +142,12 @@ cython_debug/
 *.ipynb
 *.jbl
 *.png
-data/external/*
-data/interim/*
-data/processed/*
-data/raw/*
+input/*
 features/*
-submissions/*
-.vscode/
 kaggle_utils/
+notebooks/*
+output/*
+.vscode/
 
 # exclude
 !.gitkeep

@@ -7,24 +7,20 @@ function checkdir () {
 }
 
 function makedirs () {
-    mkdir -p data/external
-    mkdir -p data/interim
-    mkdir -p data/processed
-    mkdir -p data/raw
-
     mkdir -p docker
 
     mkdir -p docs
+    mkdir -p docs/references
 
     mkdir -p features
 
-    mkdir -p models/importance
-    mkdir -p models/model
-    mkdir -p models/others
+    mkdir -p input
 
     mkdir -p notebooks
 
-    mkdir -p references
+    mkdir -p output/importance
+    mkdir -p output/model
+    mkdir -p output/submission
 
     mkdir -p scripts
 
@@ -35,29 +31,23 @@ function makedirs () {
     mkdir -p src/features
     mkdir -p src/models
     mkdir -p src/utils
-
-    mkdir -p submissions
 }
 
 function touch_keep () {
-    touch data/external/.gitkeep
-    touch data/interim/.gitkeep
-    touch data/processed/.gitkeep
-    touch data/raw/.gitkeep
-
     touch docker/.gitkeep
 
     touch docs/.gitkeep
+    touch docs/references/.gitkeep
 
     touch features/.gitkeep
-    
-    touch models/importance/.gitkeep
-    touch models/model/.gitkeep
-    touch models/others/.gitkeep
+
+    touch input/.gitkeep
 
     touch notebooks/.gitkeep
 
-    touch references/.gitkeep
+    mkdir -p output/importance/.gitkeep
+    mkdir -p output/model/.gitkeep
+    mkdir -p output/submission/.gitkeep
 
     touch scripts/.gitkeep
 
@@ -68,8 +58,6 @@ function touch_keep () {
     touch src/features/.gitkeep
     touch src/models/.gitkeep
     touch src/utils/.gitkeep
-
-    touch submissions/.gitkeep
 }
 
 function touch_init () {
@@ -135,12 +123,11 @@ function gitignore_init () {
     echo "*.ipynb" >> .gitignore
     echo "*.jbl" >> .gitignore
     echo "*.png" >> .gitignore
-    echo "data/external/*" >> .gitignore
-    echo "data/interim/*" >> .gitignore
-    echo "data/processed/*" >> .gitignore
-    echo "data/raw/*" >> .gitignore
+    echo "input/*" >> .gitignore
     echo "features/*" >> .gitignore
-    echo "submissions/*" >> .gitignore
+    echo "kaggle_utils/" >> .gitignore
+    echo "notebooks/*" >> .gitignore
+    echo "output/*" >> .gitignore
     echo ".vscode/" >> .gitignore
     echo "" >> .gitignore
     echo "# exclude" >> .gitignore
