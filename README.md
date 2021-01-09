@@ -1,11 +1,9 @@
 # COMPETITION TITLE
-
 [COMPETITION URL]
 
 ## Setup & Run
 
 ### Training
-
 ```
 $ ./scripts/download.sh
 $ ./scripts/kaggle-utils.sh download
@@ -18,19 +16,16 @@ root@xxx:/workspace# venv-activate
 ```
 
 ### Streamlit
-
 ```
 $ ./docker/exec.sh
 root@xxx:/workspace# venv-activate
-(venv) root@xxx:/workspace# streamlit run main.py --browser.serverAddress localhost
+(venv) root@xxx:/workspace# ./scripts/streamlit.sh
 ```
 
 ## Docs
 
 ### Competition
-
 https://github.com/takaiyuk/kaggle-base/blob/main/docs/competition.md
 
 ### Log
-
 https://github.com/takaiyuk/kaggle-base/blob/main/docs/log.md

@@ -85,6 +85,7 @@ function touch_init () {
     touch scripts/kaggle/submit.sh
     touch scripts/jupyter.sh
     touch scripts/kaggle-utils.sh
+    touch scripts/streamlit.sh
 
     touch src/data/load.py
     touch src/models/base.py
@@ -121,6 +122,7 @@ function chmod_shell () {
     chmod +x ./scripts/kaggle/submit.sh
     chmod +x ./scripts/jupyter.sh
     chmod +x ./scripts/kaggle-utils.sh
+    chmod +x ./scripts/streamlit.sh
 
     chmod +x ./transform-kaggle-notebook.sh
 }
