@@ -5,9 +5,9 @@
 
 ### Training
 ```
-$ ./scripts/download.sh
+$ ./scripts/kaggle/download.sh
 $ ./scripts/kaggle-utils.sh download
-$ ./docker/pull.sh && ./docker/run.sh && ./docker/exec.sh
+$ ./docker/pull.sh && ./docker/run.sh 8888 && ./docker/exec.sh
 root@xxx:/workspace# venv-activate
 (venv) root@xxx:/workspace# ./scripts/kaggle-utils.sh install
 (venv) root@xxx:/workspace# ./scripts/jupyter.sh 8888

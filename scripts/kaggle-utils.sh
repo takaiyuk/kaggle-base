@@ -1,13 +1,13 @@
 #!/bin/bash
 function download () {
-    rm -r kaggle_utils
+    rm -r src/kaggle_utils
     git clone https://github.com/takaiyuk/kaggle_utils src/kaggle_utils
 }
 
 function install () {
     apt-get update -y
     apt-get install -y --no-install-recommends libopencv-dev
-    cd kaggle_utils
+    cd src/kaggle_utils
     pip install .
     cd ..
 }

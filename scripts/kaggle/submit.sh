@@ -1,9 +1,9 @@
 #!/bin/bash
 COMPETITION_NAME=""  # Fill comepetiton name
 
-RUNE_NAME=$1
+RUN_NAME=$1
 echo ${RUNE_NAME}
-FILEPATH=submissions/submission_${RUNE_NAME}.csv
+FILEPATH=output/submission/submission_${RUN_NAME}.csv
 MESSAGE=""
 # message=$(cat ./outputs/${ymd}/${hms}/main.log | grep RMSE | sed 's/ //g' | sed 's/\t//g')
 echo filepath: ${FILEPATH}

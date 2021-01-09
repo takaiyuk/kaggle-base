@@ -1,7 +1,7 @@
 #!/bin/bash
-
 COMPETITION_NAME=""  # Fill comepetiton name
-COMPETITION_PATH="data/raw/${COMPETITION_NAME}"
+
+COMPETITION_PATH="input/${COMPETITION_NAME}"
 if [ -n "$COMPETITION_NAME" ]; then
   echo ${COMPETITION_NAME}
   kaggle competitions download -c ${COMPETITION_NAME} -p .
