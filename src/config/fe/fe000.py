@@ -26,7 +26,8 @@ class Feature:
 class Kfold:
     number: int = 2
     method: str = "tskf"
-    column: str = ""
+    shuffle: bool = True
+    columns: List[str] = field(default_factory=lambda: [""])
 
 
 @dataclass

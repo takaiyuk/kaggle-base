@@ -145,16 +145,8 @@ class AbstractRunner(metaclass=ABCMeta):
         X = X.fillna(-999)
         for k in feature_dict.keys():
             feature_data: FeatureData = feature_dict[k]
-            if k.endswith("Aggregator"):
-                X = X.join(feature_data.df, how="left", on=feature_data.key)
-            elif k.endswith("Encoder"):
-                encoder = feature_data.encoder
-                # category-encoder の transform の挙動に注意（reset_index された pd.DataFrame で返ってくる???）
-                X[f"{feature_data.key}_encoded"] = encoder.transform(
-                    X[feature_data.key].values
-                ).values
-            else:
-                raise ValueError(f"{k} is not supported")
+            for key, df in zip(feature_data.key, feature_data.df):
+                X = X.merge(df, how="left", on=key)
         X = X.drop(key_columns, axis=1)
         return X
 

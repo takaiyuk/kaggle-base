@@ -15,7 +15,7 @@ from src.models import (
     ResultData,
     XGBModel,
 )
-from src.models.evaluate import AUC, PRAUC, RMSE
+from src.models.evaluate import AUC, MAE, PRAUC, RMSE
 from src.models.kfold import generate_kf
 from src.utils import Jbl, check_exist
 
@@ -70,12 +70,14 @@ class TrainRunner(AbstractRunner):
                 oof_pred[val_idx] = y_pred
             else:
                 oof_pred[val_idx] = y_pred[:, 1]
-            models.append(model)
-        if self.model.eval_metric == "auc":
+            models.append(model.model)
+        if self.run_cfg.model.eval_metric == "auc":
             score = AUC(y_train, oof_pred)
-        elif self.model.eval_metric == "pruac":
+        elif self.run_cfg.model.eval_metric == "mae":
+            score = MAE(y_train, oof_pred)
+        elif self.run_cfg.model.eval_metric == "pruac":
             score = PRAUC(y_train, oof_pred)
-        elif self.model.eval_metric == "rmse":
+        elif self.run_cfg.model.eval_metric == "rmse":
             score = RMSE(y_train, oof_pred)
         else:
             raise ValueError(f"{self.model.eval_metric} is not supported")

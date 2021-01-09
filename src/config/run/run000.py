@@ -16,6 +16,7 @@ class Basic:
 class Column:
     categorical: List[str] = field(default_factory=lambda: [""])
     target: str = ""
+    numerical: List[str] = field(default_factory=lambda: [""])
 
 
 @dataclass

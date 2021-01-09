@@ -54,7 +54,7 @@ class FeatureRunner:
         else:
             kf_generator = kf.split(train, train[self.fe_cfg.column.target].fillna(-1))
         for fold_i, (tr_idx, _) in enumerate(kf_generator):
-            print(f"fold: {fold_i} - {tr_idx}")
+            print(f"fold: {fold_i} - {tr_idx[:20]}")
             X_tr = train.iloc[tr_idx]
 
             prefix = f"features/{self.kfold.method}-{self.kfold.number}/fold_{fold_i}"

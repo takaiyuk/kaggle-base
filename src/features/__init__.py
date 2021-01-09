@@ -1,5 +1,10 @@
-from src.features.base import FeatureData
+from dataclasses import dataclass
+from typing import List
 
-__all__ = [
-    "FeatureData",
-]
+import pandas as pd
+
+
+@dataclass
+class FeatureData:
+    key: List[str]
+    df: pd.DataFrame

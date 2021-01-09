@@ -1,7 +1,7 @@
 #!/bin/bash
 function download () {
     rm -r kaggle_utils
-    git clone https://github.com/takaiyuk/kaggle_utils
+    git clone https://github.com/takaiyuk/kaggle_utils src/kaggle_utils
 }
 
 function install () {
