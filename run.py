@@ -29,12 +29,12 @@ if __name__ == "__main__":
     subparsers = parser.add_subparsers()
     parser_fe = subparsers.add_parser("fe", help="see `fe -h`")
     parser_fe.add_argument(
-        "-f", "--fe", type=str, required=True, help="features config"
+        "-f", "--fe", type=str, required=True, help="feature filename"
     )
     parser_fe.set_defaults(func=run_fe)
     parser_exp = subparsers.add_parser("exp", help="see `exp -h`")
     parser_exp.add_argument(
-        "-e", "--exp", type=str, required=True, help="experiments config"
+        "-e", "--exp", type=str, required=True, help="experiment filename"
     )
     parser_exp.set_defaults(func=run_exp)
     args = parser.parse_args()

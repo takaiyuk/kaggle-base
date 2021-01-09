@@ -12,9 +12,9 @@ $ ./scripts/kaggle-utils.sh download
 $ ./docker/pull.sh && ./docker/run.sh && ./docker/exec.sh
 root@xxx:/workspace# venv-activate
 (venv) root@xxx:/workspace# ./scripts/kaggle-utils.sh install
-(venv) root@xxx:/workspace# jupyter lab --no-browser --allow-root --ip=0.0.0.0 --port=8888
-(venv) root@xxx:/workspace# python run.py features --fe fe000
-(venv) root@xxx:/workspace# python run.py models --run run000
+(venv) root@xxx:/workspace# ./scripts/jupyter.sh 8888
+(venv) root@xxx:/workspace# python run.py fe -f 000
+(venv) root@xxx:/workspace# python run.py exp -e 000
 ```
 
 ### Streamlit

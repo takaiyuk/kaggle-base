@@ -25,6 +25,7 @@ function makedirs () {
     mkdir -p output/submission
 
     mkdir -p scripts
+    mkdir -p scripts/kaggle
 
     mkdir -p src/data
     mkdir -p src/exp
@@ -53,6 +54,7 @@ function touch_keep () {
     touch output/submission/.gitkeep
 
     touch scripts/.gitkeep
+    touch scripts/kaggle/.gitkeep
 
     touch src/data/.gitkeep
     touch src/exp/.gitkeep
@@ -79,8 +81,10 @@ function touch_init () {
     touch docs/competition.md
     touch docs/log.md
 
-    touch scripts/download.sh
-    touch scripts/submit.sh
+    touch scripts/kaggle/download.sh
+    touch scripts/kaggle/submit.sh
+    touch scripts/jupyter.sh
+    touch scripts/kaggle-utils.sh
 
     touch src/data/load.py
     touch src/models/base.py
@@ -113,8 +117,10 @@ function chmod_shell () {
     chmod +x ./docker/run.sh
     chmod +x ./docker/kill.sh
 
-    chmod +x ./scripts/download.sh
-    chmod +x ./scripts/submit.sh
+    chmod +x ./scripts/kaggle/download.sh
+    chmod +x ./scripts/kaggle/submit.sh
+    chmod +x ./scripts/jupyter.sh
+    chmod +x ./scripts/kaggle-utils.sh
 
     chmod +x ./transform-kaggle-notebook.sh
 }
