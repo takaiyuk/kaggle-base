@@ -1,4 +1,4 @@
-from src.models.base import AbstractRunner, FeatureData, Model, ResultData, TrainData
+from src.models.base import AbstractRunner, Model
 from src.models.model_cb import CatClassifierModel, CatRegressorModel
 from src.models.model_lgbm import LGBMModel, LGBMOptunaModel
 from src.models.model_lr import LRModel
@@ -9,13 +9,10 @@ __all__ = [
     "AbstractRunner",
     "CatClassifierModel",
     "CatRegressorModel",
-    "FeatureData",
     "LGBMModel",
     "LGBMOptunaModel",
     "LRModel",
     "Model",
-    "ResultData",
     "RidgeModel",
-    "TrainData",
     "XGBModel",
 ]

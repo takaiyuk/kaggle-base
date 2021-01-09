@@ -1,3 +1,4 @@
+from src.utils.config import print_cfg
 from src.utils.file import check_exist, mkdir
 from src.utils.joblib import Jbl
 from src.utils.logger import Logger
@@ -8,5 +9,6 @@ __all__ = [
     "Logger",
     "check_exist",
     "mkdir",
+    "print_cfg",
     "reduce_mem_usage",
 ]

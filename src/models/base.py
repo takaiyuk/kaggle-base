@@ -1,6 +1,5 @@
-import itertools
 from abc import ABCMeta, abstractmethod
-from dataclasses import asdict, dataclass
+from dataclasses import asdict
 from logging import Logger
 from typing import Any, Dict, List, Optional
 
@@ -11,35 +10,14 @@ import pandas as pd
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
 
-from src.config import BaseRunConfig
-from src.const import ModelPath
-from src.data import Loader
-from src.utils import Jbl, mkdir, reduce_mem_usage
-
-
-@dataclass
-class TrainData:
-    train: pd.DataFrame
-    test: pd.DataFrame
-
-
-@dataclass
-class FeatureData:
-    df: pd.DataFrame
-    encoder: Any
-    key: List[str]
-
-
-@dataclass
-class ResultData:
-    models: List[Any]
-    pred: np.array
+from src.types import FeatureData, OutputPath, ResultData, TrainData
+from src.utils import Jbl, mkdir
 
 
 class Model(metaclass=ABCMeta):
     """https://github.com/upura/ayniy/blob/master/ayniy/model/model.py"""
 
-    def __init__(self, run_cfg: BaseRunConfig, fold_i: int) -> None:
+    def __init__(self, run_cfg: Any, fold_i: int) -> None:
         self.run_name = run_cfg.basic.name
         self.fold_i = fold_i
         self.categorical_features = run_cfg.column.categorical
@@ -62,28 +40,13 @@ class Model(metaclass=ABCMeta):
         """
         pass
 
+    @abstractmethod
     def predict(self, X_te: pd.DataFrame) -> np.ndarray:
         """学習済のモデルでの予測値を返す
         :param X_te: バリデーションデータやテストデータの特徴量
         :return: 予測値
         """
-        if self.model is not None:
-            return self.model.predict(X_te, num_iteration=self.model.best_iteration)  # type: ignore
-        else:
-            raise ValueError("Train model before prediction")
-
-    def predict_proba(self, X_te: pd.DataFrame, is_binary: bool) -> np.ndarray:
-        """学習済のモデルでの予測値を返す
-        :param X_te: バリデーションデータやテストデータの特徴量
-        :return: 予測値
-        """
-        if self.model is not None:
-            if is_binary:
-                return self.model.predict_proba(X_te, num_iteration=self.model.best_iteration)[:, 1]  # type: ignore
-            else:
-                return self.model.predict_proba(X_te, num_iteration=self.model.best_iteration)  # type: ignore
-        else:
-            raise ValueError("Train model before prediction")
+        pass
 
     def save_model(self, model_path: str) -> None:
         """モデルの保存を行う
@@ -100,7 +63,7 @@ class Model(metaclass=ABCMeta):
 
 
 class AbstractRunner(metaclass=ABCMeta):
-    def __init__(self, run_cfg: BaseRunConfig, logger: Logger):
+    def __init__(self, run_cfg: Any, logger: Logger):
         self.run_cfg = run_cfg
         self.logger = logger
         self.run_name = run_cfg.basic.name
@@ -110,45 +73,17 @@ class AbstractRunner(metaclass=ABCMeta):
         self.kfold = run_cfg.kfold
         self.params = asdict(run_cfg.params)
 
+    @abstractmethod
     def _load(self) -> TrainData:
-        loader = Loader()
-        if self.fe_cfg.basic.is_debug:
-            train = loader.train(nrows=1_000_000)
-        else:
-            train = loader.train()
-        test = loader.test()
-        train = reduce_mem_usage(train)
-        test = reduce_mem_usage(test)
-        return TrainData(train=train, test=test)
+        pass
 
+    @abstractmethod
     def _features(self, fold_i: int) -> Dict[str, FeatureData]:
-        feature_dict = {}
-        feature_list: List[str] = [
-            k for k, v in asdict(self.feature).items() if v is True
-        ]
-        for feature_str in feature_list:
-            feature_dict[feature_str] = Jbl.load(
-                f"features/{self.run_cfg.kfold.method}-{self.run_cfg.kfold.number}/fold_{fold_i}/{feature_str}.jbl"
-            )
-        return feature_dict
+        pass
 
+    @abstractmethod
     def _preprocess(self, df: pd.DataFrame, fold_i: int) -> pd.DataFrame:
-        feature_dict = self._features(fold_i)
-        key_columns = [
-            feature_data.key if type(feature_data.key) == list else [feature_data.key]
-            for k, feature_data in feature_dict.items()
-        ]
-        key_columns = list(itertools.chain.from_iterable(key_columns))
-        key_columns = list(np.unique(key_columns))
-        selected_columns = key_columns + self.column.external
-        X = df.loc[:, selected_columns]
-        X = X.fillna(-999)
-        for k in feature_dict.keys():
-            feature_data: FeatureData = feature_dict[k]
-            for key, df in zip(feature_data.key, feature_data.df):
-                X = X.merge(df, how="left", on=key)
-        X = X.drop(key_columns, axis=1)
-        return X
+        pass
 
     @abstractmethod
     def _model(self, X_train: pd.DataFrame, y_train: pd.Series) -> ResultData:
@@ -197,7 +132,7 @@ class AbstractRunner(metaclass=ABCMeta):
         )
         fig.tight_layout()
         ax.grid()
-        plt.savefig(f"{ModelPath.importance}/importance_{self.run_name}.png", dpi=100)
+        plt.savefig(f"{OutputPath.importance}/importance_{self.run_name}.png", dpi=100)
 
     def _confusion_matrix(
         self, y_true: np.array, pred_label: np.array, height: float = 0.6, labels=None
@@ -217,4 +152,6 @@ class AbstractRunner(metaclass=ABCMeta):
             ax.tick_params("y", labelrotation=0)
             ax.tick_params("x", labelrotation=90)
         fig.tight_layout()
-        plt.savefig(f"{ModelPath.others}/confusion_matrix_{self.run_name}.png", dpi=100)
+        plt.savefig(
+            f"{OutputPath.confusion}/confusion_matrix_{self.run_name}.png", dpi=100
+        )

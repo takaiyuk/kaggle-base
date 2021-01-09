@@ -143,10 +143,15 @@ cython_debug/
 *.jbl
 *.png
 input/*
-features/*
 kaggle_utils/
 notebooks/*
-output/*
+output/confusion/*
+output/feature/*
+output/importance/*
+output/log/*
+output/model/*
+output/optuna/*
+output/submission/*
 .vscode/
 
 # exclude
