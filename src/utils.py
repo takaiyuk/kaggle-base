@@ -1,20 +1,12 @@
-import math
 import time
 from contextlib import contextmanager
+from pathlib import Path
 from typing import Any, Generator, Optional
 
 
-def time_since(since: float, percent: float) -> str:
-    def as_minutes(s):
-        m = math.floor(s / 60)
-        s -= m * 60
-        return "%dm %ds" % (m, s)
-
-    now = time.time()
-    s = now - since
-    es = s / (percent)
-    rs = es - s
-    return f"{as_minutes(s)} (remain {as_minutes(rs)})"
+def read_env(path: Path = Path(".env")) -> dict[str, str]:
+    with open(path, "r") as f:
+        return {line.split("=")[0]: line.split("=")[1].strip() for line in f.readlines()}
 
 
 @contextmanager

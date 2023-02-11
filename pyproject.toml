@@ -1,0 +1,59 @@
+[tool.poetry]
+name = "kaggle-base"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{include = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+joblib = "^1.2.0"
+lightgbm = "^3.3.5"
+matplotlib = "^3.6.3"
+numpy = "^1.24.2"
+polars = "^0.16.3"
+scikit-learn = "^1.2.1"
+seaborn = "^0.12.2"
+structlog = "^22.3.0"
+tqdm = "^4.64.1"
+
+[tool.poetry.group.dev.dependencies]
+invoke = "^2.0.0"
+jupyterlab = "^3.6.1"
+kaggle = "^1.5.12"
+
+[tool.poetry.group.test.dependencies]
+black = "^23.1.0"
+flake8 = "^6.0.0"
+isort = "^5.12.0"
+mypy = "^1.0.0"
+pytest = "^7.2.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+target-version = ['py310']
+line-length = 120
+
+[tool.isort]
+line_length = 120
+multi_line_output = 3
+include_trailing_comma = true
+forced_separate=["src",]
+
+[tool.flake8]
+max-line-length = 120
+ignore = "E203,E231,E266,E501,W503"
+select = "B,C,E,F,W,T4,B9"
+
+[tool.mypy]
+python_version = "3.10"
+no_strict_optional = true
+ignore_missing_imports = true
+check_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests",]

@@ -1,49 +1,68 @@
-# [COMPETITION NAME]
+# kaggle-${COMPETITION_NAME}
 
-[DESCRIPTION OF COMPETITION]
+## Usage
 
-[URL OF COMPETITION]
-
-## Setup
+### Setup
 
 ```
-$ git clone git@github.com:takaiyuk/kaggle-base.git kaggle-$COMPETITION_NAME
-$ cp .env.example .env  # Fill in 'COMPETITION_NAME'
-$ ./scripts/initialize.sh
-
-$ ./scripts/docker/run.sh
-$ ./scripts/docker/exec.sh
-root@xxxxx:/workspace# venv-activate
-(venv) root@xxxxx:/workspace# ./scripts/kaggle/download.sh
-(venv) root@xxxxx:/workspace# pip install -r requirements.txt
+$ cp .env.example .env
+$ poetry install
+$ poetry run inv kaggle-download
 ```
 
-### Generate new exp directory
+### Run
 
 ```
-$ ./scripts/gen-new-exp.sh ${OLD_EXP_NAME_LIKE_EXP000}
+$ poetry run inv run -v verXXX
 ```
 
-## Run
+### Format
 
 ```
-$ ./scripts/docker/exec.sh
-root@xxxxx:/workspace# venv-activate
-(venv) root@xxxxx:/workspace# ./scripts/run.sh expXXX
+$ poetry run inv format
 ```
 
-### Run (Debug mode)
+### Lint
 
 ```
-$ ./scripts/docker/exec.sh
-root@xxxxx:/workspace# venv-activate
-(venv) root@xxxxx:/workspace# ./scripts/run.sh expXXX debug
+$ poetry run inv lint
 ```
 
 ### Jupyter
 
 ```
-$ ./scripts/docker/exec.sh
-root@xxxxx:/workspace# venv-activate
-(venv) root@xxxxx:/workspace# ./scripts/jupyter.sh
+$ poetry run inv jupyter
+```
+
+### Submission
+
+```
+$ poetry run inv kaggle-submit -v verXXX
+```
+
+## Directory Structure
+
+```
+.
+├── data
+├── docker
+│  └── Dockerfile
+├── input
+│  └── ${COMPETITION_NAME}
+├── notebooks
+├── output
+│  └── submissions
+├── poetry.lock
+├── pyproject.toml
+├── README.md
+├── src
+│  ├── __init__.py
+│  ├── ver001
+│  │  ├── __init__.py
+│  │  └── __main__.py
+│  ├── filepath.py
+│  └── utils.py
+├── tasks.py
+└── tests
+   └── __init__.py
 ```
